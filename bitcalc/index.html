@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        
+        <script type="text/javascript">
+            
+            var bitovki = new Array(
+                { size: 2, plan: 'without',  price: 27500, out: {vagon: 0, cink: 3500, immit: 6000, block: 6000}, 
+                  inside: {immit: 5000, vagonab: 5000, vagonc: 5500, orgalit: 0}, 
+                  floor: { obrez: 0, linol: 2500, linolcomm: 3000, floor36: 3000},
+                  option: { elect: 3000, teplo: 4000, out_cink: 800, in_cink: 1500, minvat: 1000, minvat2: 2000, dno_cink: 2000, anti_karkas: 2500, anti_obresh: 1000, out_paint: 1000, nalich: 1400}},
+                
+                { size: 3, plan: 'without',  price: 29500, out: {vagon: 0, cink: 4000, immit: 6000, block: 6000}, 
+                  inside: {immit: 7000, vagonab: 7000, vagonc: 5500, orgalit: 0}, 
+                  floor: { obrez: 0, linol: 2500, linolcomm: 4000, floor36: 4000}, 
+                  option: { elect: 3000, teplo: 4000, out_cink: 800, in_cink: 1500, minvat: 1000, minvat2: 2000, dno_cink: 2000, anti_karkas: 2500, anti_obresh: 1000, out_paint: 1200, nalich: 1400}},
+                
+                { size: 4, plan: 'without',  price: 32500, out: {vagon: 0, cink: 4500, immit: 8000, block: 8000}, 
+                  inside: {immit: 8000, vagonab: 8000, vagonc: 5500, orgalit: 0},  
+                  floor: { obrez: 0, linol: 3000, linolcomm: 4500, floor36: 5000},
+                  option: { elect: 3000, teplo: 4000, out_cink: 800, in_cink: 1500, minvat: 1500, minvat2: 3000, dno_cink: 2500, anti_karkas: 3500, anti_obresh: 1300, out_paint: 1600, nalich: 1400}},
+                
+                { size: 4, plan: 'oneSplit', price: 35500, out: {vagon: 0, cink: 4500, immit: 8000, block: 8000}, 
+                  inside: {immit: 8000, vagonab: 8000, vagonc: 5500, orgalit: 0}, 
+                  floor: { obrez: 0, linol: 3000, linolcomm: 4500, floor36: 5000}, 
+                  option: { elect: 3000, teplo: 4000, out_cink: 800, in_cink: 1500, minvat: 1500, minvat2: 3000, dno_cink: 2500, anti_karkas: 3500, anti_obresh: 1300, out_paint: 1600, nalich: 1400}},
+                
+                { size: 5, plan: 'without',  price: 36000, out: {vagon: 0, cink: 5000, immit: 11000, block: 11000}, 
+                  inside: {immit: 15500, vagonab: 15000, vagonc: 6000, orgalit: 0},  
+                  floor: { obrez: 0, linol: 3500, linolcomm: 5500, floor36: 6000},
+                  option: { elect: 3000, teplo: 6000, out_cink: 800, in_cink: 1500, minvat: 1500, minvat2: 3000, dno_cink: 3000, anti_karkas: 3500, anti_obresh: 1300, out_paint: 2000, nalich: 1800}},
+                
+                { size: 5, plan: 'oneSplit', price: 39000, out: {vagon: 0, cink: 5000, immit: 9000, block: 9000}, 
+                  inside: {immit: 10000, vagonab: 10000, vagonc: 6500, orgalit: 0}, 
+                  floor: { obrez: 0, linol: 3500, linolcomm: 5500, floor36: 6000}, 
+                  option: { elect: 4500, teplo: 6000, out_cink: 800, in_cink: 1500, minvat: 1500, minvat2: 3000, dno_cink: 3000, anti_karkas: 3500, anti_obresh: 1300, out_paint: 2000, nalich: 1800}},
+                
+                { size: 5, plan: 'twoSplit', price: 43500, out: {vagon: 0, cink: 5000, immit: 9000, block: 9000}, 
+                  inside: {immit: 10000, vagonab: 10000, vagonc: 6000, orgalit: 0}, 
+                  floor: { obrez: 0, linol: 3500, linolcomm: 5500, floor36: 6000}, 
+                  option: { elect: 6000, teplo: 6000, out_cink: 800, in_cink: 1500, minvat: 1500, minvat2: 3000, dno_cink: 3000, anti_karkas: 3500, anti_obresh: 1300, out_paint: 2000, nalich: 1800}},
+                
+                { size: 6, plan: 'without',  price: 40000, out: {vagon: 0, cink: 5500, immit: 9000, block: 9000}, 
+                  inside: {immit: 12000, vagonab: 12000, vagonc: 6000, orgalit: 0}, 
+                  floor: { obrez: 0, linol: 4500, linolcomm: 6500, floor36: 7000}, 
+                  option: { elect: 3000, teplo: 9000, out_cink: 1200, in_cink: 2000, minvat: 2000, minvat2: 4000, dno_cink: 4000, anti_karkas: 4800, anti_obresh: 1500, out_paint: 2400, nalich: 1800}},
+                
+                { size: 6, plan: 'oneSplit', price: 43000, out: {vagon: 0, cink: 5500, immit: 9000, block: 9000}, 
+                  inside: {immit: 12000, vagonab: 12000, vagonc: 6500, orgalit: 0}, 
+                  floor: { obrez: 0, linol: 4500, linolcomm: 6500, floor36: 7000}, 
+                  option: { elect: 4500, teplo: 9000, out_cink: 1200, in_cink: 2000, minvat: 2000, minvat2: 4000, dno_cink: 4000, anti_karkas: 4800, anti_obresh: 1500, out_paint: 2400, nalich: 1800}},
+                
+                { size: 6, plan: 'twoSplit', price: 47000, out: {vagon: 0, cink: 5500, immit: 9000, block: 9000}, 
+                  inside: {immit: 12000, vagonab: 12000, vagonc: 6500, orgalit: 0}, 
+                  floor: { obrez: 0, linol: 4500, linolcomm: 6500, floor36: 7000}, 
+                  option: { elect: 6000, teplo: 9000, out_cink: 1200, in_cink: 2000, minvat: 2000, minvat2: 4000, dno_cink: 4000, anti_karkas: 4800, anti_obresh: 1500, out_paint: 2400, nalich: 1800}},
+                
+                { size: 7, plan: 'without',  price: 46000, out: {vagon: 0, cink: 6500, immit: 11000, block: 11000}, 
+                  inside: {immit: 15500, vagonab: 15000, vagonc: 8500, orgalit: 0}, 
+                  floor: { obrez: 0, linol: 5500, linolcomm: 7500, floor36: 8000}, 
+                  option: { elect: 3000, teplo: 9000, out_cink: 1200, in_cink: 2000, minvat: 2000, minvat2: 4000, dno_cink: 5000, anti_karkas: 4800, anti_obresh: 1500, out_paint: 2800, nalich: 1800}},
+                
+                { size: 7, plan: 'oneSplit', price: 49500, out: {vagon: 0, cink: 6500, immit: 11000, block: 11000}, 
+                  inside: {immit: 15500, vagonab: 15000, vagonc: 8500, orgalit: 0}, 
+                  floor: { obrez: 0, linol: 5500, linolcomm: 7500, floor36: 8000}, 
+                  option: { elect: 4500, teplo: 9000, out_cink: 1200, in_cink: 2000, minvat: 2000, minvat2: 4000, dno_cink: 5000, anti_karkas: 4800, anti_obresh: 1500, out_paint: 2800, nalich: 1800}},
+                
+                { size: 7, plan: 'twoSplit', price: 52500, out: {vagon: 0, cink: 6500, immit: 11000, block: 11000}, 
+                  inside: {immit: 15500, vagonab: 15000, vagonc: 6500, orgalit: 0}, 
+                  floor: { obrez: 0, linol: 5500, linolcomm: 7500, floor36: 8000}, 
+                  option: { elect: 6000, teplo: 9000, out_cink: 1200, in_cink: 2000, minvat: 2000, minvat2: 4000, dno_cink: 5000, anti_karkas: 4800, anti_obresh: 1500, out_paint: 2800, nalich: 1800}}
+            );
+            
+            // КОЕФФИЦИЕНТЫ
+            
+            var k_height = { height2 : 0, height215: 0.05, height23: 0.1 };
+            
+            var k_width3m = 0.15;
+            
+            var k_build = 0.2;
+            
+            var dno_cover = { without: 0, oil: 1200, anti: 1700 }
+            
+            var dop_summ = 0;
+            
+            function change_bit_size(select){
+                
+                select = $(select);
+                
+                $("#bit_plan > option").removeAttr('disabled');
+                $("#bit_plan").val('without');
+                
+                if(select.val() < 5){
+                    $("#bit_plan > option[value='twoSplit']").attr('disabled','disabled');
+                }
+                if(select.val() < 4){
+                    $("#bit_plan > option[value='oneSplit']").attr('disabled','disabled');
+                }
+                
+            }
+            
+            function change_form(form){
+                
+                var bit; // Переменная для найденной бытовки
+
+                var size = form.bit_size.value;
+                var plan = form.bit_plan.value;
+                var out = form.bit_out.value;
+                var inside = form.bit_in.value;
+                
+                var height = form.height.value;
+                var dop_width = form.dop_width.checked;
+                var build = form.build.checked;    
+                
+                var elect = form.elect.checked;
+                var teplo = form.teplo.checked;
+                var out_cink = form.out_cink.checked;
+                var in_cink = form.in_cink.checked;
+                var minvat = form.minvat.checked;
+                var minvat2 = form.minvat2.checked;
+                var dno_cink = form.dno_cink.checked;
+                var anti_karkas = form.anti_karkas.checked;
+                var anti_obresh = form.anti_obresh.checked;
+                var out_paint = form.out_paint.checked;
+                var nalich = form.nalich.checked;
+                
+                var floor = form.bit_floor.value;
+                
+                var cover = form.dno_cover.value;
+                
+                if( height == 'height215') { $('#door_metal').removeAttr('disabled'); }
+                else { $('#door_metal').attr('disabled','disabled'); $('#door_metal').prop('checked',''); }
+                
+                for(i = 0; i < bitovki.length; i++){
+                    if(bitovki[i].size == size && bitovki[i].plan == plan){
+                        bit = bitovki[i];
+                        break;
+                    }
+                }
+                
+                // Подсчет до первого подитога
+                
+                var price = bit.price;
+                price += bit.out[out]
+                price += bit.inside[inside];
+                if(elect) { price += bit.option.elect; }
+                if(teplo) { price += bit.option.teplo; }
+                
+                var poditog = price;
+                
+                if(out_cink) { price += bit.option.out_cink; }
+                if(in_cink) { price += bit.option.in_cink; }
+                if(minvat) { price += bit.option.minvat; }
+                if(minvat2) { price += bit.option.minvat2; }
+                if(dno_cink) { price += bit.option.dno_cink; }
+                if(anti_karkas) { price += bit.option.anti_karkas; }
+                if(anti_obresh) { price += bit.option.anti_obresh; }
+                if(out_paint) { price += bit.option.out_paint; }
+                if(nalich) { price += bit.option.nalich; }
+                
+                price += bit.floor[floor];
+                
+                poditog = price;
+                        
+                price += poditog * k_height[height];
+                        
+                poditog = price;
+                        
+                if(dop_width) { price += poditog * k_width3m;}
+                if(build) { price += poditog * k_build; }
+                
+                price += dno_cover[cover];
+                if(build) price += dno_cover[cover] * k_build;
+   
+                price += dop_summ;
+    
+                $('#result').html('Стоимость - ' + price);
+                
+            }
+            
+            function change_dop_width(dop_width){
+                
+                dop_width = $(dop_width);
+                
+                if(dop_width.prop('checked') == true){
+                    $("#build").prop('checked','true');
+                    $("#build").attr('disabled','disabled');
+                }
+                
+                if(dop_width.prop('checked') == false){
+                    $("#build").removeAttr('disabled');
+                }
+            }
+            
+            function change_dop_complect(input){
+                var cost = $('label[for='+input.id+'] > .dop_cost').text();
+                
+                var price = input.value * cost;
+                
+                $('label[for='+input.id+'] > .dop_price').text(price);
+                
+                if(input.getAttribute('data-oldnumber') <= input.value){
+                    dop_summ += (input.value - input.getAttribute('data-oldnumber')) * cost;
+                }
+                else {
+                    dop_summ -= (input.getAttribute('data-oldnumber') - input.value) * cost;
+                }
+                
+                input.setAttribute('data-oldnumber',input.value);
+            }
+            
+            function toggle_block(id){
+                var block = $('#'+id);
+                if(block.css('display') == 'none') { block.css('display','block'); }
+                else { block.css('display','none');}
+            }
+                    
+        </script>
+    </head>
+    <body>
+       
+        <form id="bitcalc" onchange="change_form(this)">
+            <p>
+               <label for="bit_size">Размер бытовки</label> <br>
+                <select id="bit_size" name="bit_size" onchange="change_bit_size(this)">
+                    <option value="2">2x2 метра</option>
+                    <option value="3">3x2 метра</option>
+                    <option value="4">4x2 метра</option>
+                    <option value="5">5x2 метра</option>
+                    <option value="6">6x2 метра</option>
+                    <option value="7">7x2 метра</option>
+                </select>
+            </p>
+            <p>
+               <label for="bit_plan">Планировка</label> <br>
+                <select id="bit_plan" name="bit_plan">
+                    <option value="without">Без перегородок</option>
+                    <option value="oneSplit">1 перегородка и тамбур</option>
+                    <option value="twoSplit">2 перегородки и тамбур</option>
+                </select>
+            </p>
+            <p>
+               <label for="bit_out">Наружняя отделка</label> <br>
+                <select name="bit_out" id="bit_out">
+                    <option value="vagon">Вагонка</option>
+                    <option value="cink">Оцинковка</option>
+                    <option value="immit">Имитация бруса</option>
+                    <option value="block">Блок-хаус</option>
+                </select>
+            </p>
+            <p>
+               <label for="bit_in">Внутреняя отделка</label> <br>
+                <select name="bit_in" id="bit_in">
+                    <option value="immit">Имитация бруса</option>
+                    <option value="vagonab">Вагонка АБ</option>
+                    <option value="vagonc">Вагонка С</option>
+                    <option value="orgalit">Оргалит</option>
+                </select>
+            </p>
+            <p>
+               <label for="bit_floor">Напольное покрытие</label> <br>
+                <select name="bit_floor" id="bit_floor">
+                    <option value="obrez">Обрезаня</option>
+                    <option value="linol">Линолеум</option>
+                    <option value="linolcomm">Коммерческий ленолеум</option>
+                    <option value="floor36">Пол 36</option>
+                </select>
+            </p>
+            <p>
+               <label for="dno_cover">Покрытие дна</label> <br>
+                <select name="dno_cover" id="dno_cover">
+                    <option value="without">Без покрытия</option>
+                    <option value="oil">Масло</option>
+                    <option value="anti">Антисептик</option>
+                </select>
+            </p>
+            <span onclick="toggle_block('bitcalc_wh_block')">Увеличение высоты/ширины</span>
+            <p id="bitcalc_wh_block" style="display:none;">
+                <input type="checkbox" name="dop_width" id="dop_width" onchange="change_dop_width(this)">
+                <label for="dop_width">Увеличение ширины до 3м (только со сборкой на участке)</label>
+                <br>
+                <input type="radio" name="height" id="height2" value="height2" checked>
+                <label for="height2">Высота 2 метра (стандартно)</label>
+                <br>
+                <input type="radio" name="height" id="height215" value="height215">
+                <label for="height215">Увеличение высоты до 2.15 метров</label>
+                <br>
+                <input type="radio" name="height" id="height23" value="height23">
+                <label for="height23">Увеличение высоты до 2.3 метров</label>
+                <br>
+                <input type="checkbox" name="build" id="build"> 
+                <label name="build">Сборка</label>
+                <br>
+                <input type="checkbox" name="door_metal" id="door_metal" disabled>
+                <label for="door_metal">Металическая дверь (только с высотой бытовки 2.15)</label>
+            </p>
+            <br>
+            <br>
+            <span onclick="toggle_block('bitcalc_dop_block')">Дополнительные опции</span><br>
+            <p id="bitcalc_dop_block" style="display:none;">
+                <input type="checkbox" name="elect" id="elect">
+                <label for="elect">Электрика</label><br>
+                <input type="checkbox" name="teplo" id="teplo">
+                <label for="teplo">Утепление 100</label><br>
+                <input type="checkbox" name="out_cink" id="out_cink">
+                <label for="out_cink">Замена гвоздей на оцинкованные (Внешняя)</label><br>
+                <input type="checkbox" name="in_cink" id="in_cink">
+                <label for="in_cink">Замена гвоздей на оцинкованные (Внутреняя)</label><br>
+                <input type="checkbox" name="minvat" id="minvat">
+                <label for="minvat">Утепление минватой</label><br>
+                <input type="checkbox" name="minvat2" id="minvat2">
+                <label for="minvat2">Утепление минватой x2</label><br>
+                <input type="checkbox" name="dno_cink" id="dno_cink">
+                <label for="dno_cink">Оцинкованное дно</label><br>
+                <input type="checkbox" name="anti_karkas" id="anti_karkas">
+                <label for="anti_karkas">Обработка каркаса антисептиком</label><br>
+                <input type="checkbox" name="anti_obresh" id="anti_obresh">
+                <label for="anti_obresh">Обработка обрешотки крыши антисептиком</label><br>
+                <input type="checkbox" name="out_paint" id="out_paint">
+                <label for="out_paint">Покраска эмалью наружных стен</label><br>
+                <input type="checkbox" name="nalich" id="nalich">
+                <label for="nalich">Выделение наличников</label>
+            </p>
+            <br>
+            <span onclick="toggle_block('bitcalc_dop_complect_block')">Дополнительные комплектующие</span>
+            <p id="bitcalc_dop_complect_block" style="display:none;">
+                <input type="number" min="0" id="dop_complect1" value="0" onchange="change_dop_complect(this)" data-oldcount = '0'>
+                <label for="dop_complect1">Блоки - <span class="dop_cost">200</span> : <span class="dop_price">0</span></label>
+                <br>
+                <input type="number" min="0" id="dop_complect2"  value="0" onchange="change_dop_complect(this)" data-oldcount = '0'>
+                <label for="dop_complect2">Руберойд - <span class="dop_cost">100</span> : <span class="dop_price">0</span></label>
+                <br>
+                <input type="number" min="0" id="dop_complect3"  value="0" onchange="change_dop_complect(this)" data-oldcount = '0'>
+                <label for="dop_complect3">Доп. дверь - <span class="dop_cost">1500</span> : <span class="dop_price">0</span></label>
+                <br>
+                <input type="number" min="0" id="dop_complect4"  value="0" onchange="change_dop_complect(this)" data-oldcount = '0'>
+                <label for="dop_complect4">Ставни - <span class="dop_cost">1500</span> : <span class="dop_price">0</span></label>
+                <br>
+                <input type="number" min="0" id="dop_complect5"  value="0" onchange="change_dop_complect(this)" data-oldcount = '0'>
+                <label for="dop_complect5">Ступени - <span class="dop_cost">1500</span> : <span class="dop_price">0</span></label>
+                <br>
+                <input type="number" min="0" id="dop_complect6"  value="0" onchange="change_dop_complect(this)" data-oldcount = '0'>
+                <label for="dop_complect6">Козырек - <span class="dop_cost">1500</span> : <span class="dop_price">0</span></label>
+                <br>
+                <input type="number" min="0" id="dop_complect7"  value="0" onchange="change_dop_complect(this)" data-oldcount = '0'>
+                <label for="dop_complect7">Врезной замок - <span class="dop_cost">1200</span> : <span class="dop_price">0</span></label>
+                <br>
+                <input type="number" min="0" id="dop_complect8"  value="0" onchange="change_dop_complect(this)" data-oldcount = '0'>
+                <label for="dop_complect8">Покрыть дверь оцинкованным - <span class="dop_cost">1500</span> : <span class="dop_price">0</span></label>
+                <br>
+                <input type="number" min="0" id="dop_complect9"  value="0" onchange="change_dop_complect(this)" data-oldcount = '0'>
+                <label for="dop_complect9">Доп. окно (глухое) - <span class="dop_cost">1000</span> : <span class="dop_price">0</span></label>
+                <br>
+                <input type="number" min="0" id="dop_complect10"  value="0" onchange="change_dop_complect(this)" data-oldcount = '0'>
+                <label for="dop_complect10">Доп. окно (распашное) - <span class="dop_cost">2000</span> : <span class="dop_price">0</span></label>
+                <br>
+                <input type="number" min="0" id="dop_complect11"  value="0" onchange="change_dop_complect(this)" data-oldcount = '0'>
+                <label for="dop_complect11">Нары 2 - <span class="dop_cost">2000</span> : <span class="dop_price">0</span></label>
+                <br>
+                <input type="number" min="0" id="dop_complect12"  value="0" onchange="change_dop_complect(this)" data-oldcount = '0'>
+                <label for="dop_complect12">Нары 1 - <span class="dop_cost">1000</span> : <span class="dop_price">0</span></label>
+                <br>
+                <input type="number" min="0" id="dop_complect13"  value="0" onchange="change_dop_complect(this)" data-oldcount = '0'>
+                <label for="dop_complect13">Замена окна на ПВХ - <span class="dop_cost">3500</span> : <span class="dop_price">0</span></label>
+                <br>
+                <input type="number" min="0" id="dop_complect14"  value="0" onchange="change_dop_complect(this)" data-oldcount = '0'>
+                <label for="dop_complect14">Доп. окно ПВХ - <span class="dop_cost">4500</span> : <span class="dop_price">0</span></label>
+                <br>
+                <input type="number" min="0" id="dop_complect15"  value="0" onchange="change_dop_complect(this)" data-oldcount = '0'>
+                <label for="dop_complect15">Установка окна или двери клиента - <span class="dop_cost">1000</span> : <span class="dop_price">0</span></label>
+                <br>
+                <input type="number" min="0" id="dop_complect16"  value="0" onchange="change_dop_complect(this)" data-oldcount = '0'>
+                <label for="dop_complect16">Перегородка орг - <span class="dop_cost">2000</span> : <span class="dop_price">0</span></label>
+                <br>
+                <input type="number" min="0" id="dop_complect17"  value="0" onchange="change_dop_complect(this)" data-oldcount = '0'>
+                <label for="dop_complect17">Перегородка С - <span class="dop_cost">2500</span> : <span class="dop_price">0</span></label>
+                <br>
+                <input type="number" min="0" id="dop_complect18"  value="0" onchange="change_dop_complect(this)" data-oldcount = '0'>
+                <label for="dop_complect18">Перегородка АВ - <span class="dop_cost">4000</span> : <span class="dop_price">0</span></label>
+                <br>             
+            </p>
+            <br><br>
+            <h3 id="result"></h3>
+            <br>
+            <div id="log"></div>  
+        </form>
+        
+        
+        <script type="text/javascript">
+            
+            
+            
+             $(document).ready(function(){
+                change_bit_size($("#bit_size"));
+            });
+        </script>
+    </body>
+    
+</html>
