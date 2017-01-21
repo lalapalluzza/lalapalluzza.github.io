@@ -89,6 +89,8 @@
             
             var dop_summ = 0;
             
+            var door_metal_cost = 9000;
+            
             function change_bit_size(select){
                 
                 select = $(select);
@@ -116,7 +118,8 @@
                 
                 var height = form.height.value;
                 var dop_width = form.dop_width.checked;
-                var build = form.build.checked;    
+                var build = form.build.checked;  
+                
                 
                 var elect = form.elect.checked;
                 var teplo = form.teplo.checked;
@@ -129,6 +132,8 @@
                 var anti_obresh = form.anti_obresh.checked;
                 var out_paint = form.out_paint.checked;
                 var nalich = form.nalich.checked;
+                
+                var door_metal = form.door_metal.checked;
                 
                 var floor = form.bit_floor.value;
                 
@@ -169,6 +174,8 @@
                 poditog = price;
                         
                 price += poditog * k_height[height];
+                
+                if(door_metal) price += door_metal_cost;
                         
                 poditog = price;
                         
