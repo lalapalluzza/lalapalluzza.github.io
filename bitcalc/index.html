@@ -139,7 +139,7 @@
                 
                 var cover = form.dno_cover.value;
                 
-                if( height == 'height215') { $('#door_metal').removeAttr('disabled'); }
+                if( height == 'height215' || height == 'height23') { $('#door_metal').removeAttr('disabled'); }
                 else { $('#door_metal').attr('disabled','disabled'); $('#door_metal').prop('checked',''); }
                 
                 for(i = 0; i < bitovki.length; i++){
@@ -178,16 +178,22 @@
                 if(door_metal) price += door_metal_cost;
                         
                 poditog = price;
-                        
+                
+                $('#result').html('Стоимость без сборки и увеличения до 3м - ' + price + '<br>');
+                
                 if(dop_width) { price += poditog * k_width3m;}
                 if(build) { price += poditog * k_build; }
                 
+                $('#result').html($('#result').html()+'Стоимость бытовки - ' + price + '<br>');
+                
                 price += dno_cover[cover];
                 if(build) price += dno_cover[cover] * k_build;
-   
+                
                 price += dop_summ;
+                
+                $('#result').html($('#result').html()+'Допы - ' + dop_summ + '<br>');
     
-                $('#result').html('Стоимость - ' + price);
+                $('#result').html($('#result').html()+'Итоговая стоимость - ' + price + '<br>');
                 
             }
             
@@ -273,7 +279,7 @@
             <p>
                <label for="bit_floor">Напольное покрытие</label> <br>
                 <select name="bit_floor" id="bit_floor">
-                    <option value="obrez">Обрезаня</option>
+                    <option value="obrez">Обрезная</option>
                     <option value="linol">Линолеум</option>
                     <option value="linolcomm">Коммерческий ленолеум</option>
                     <option value="floor36">Пол 36</option>
@@ -305,7 +311,7 @@
                 <label name="build">Сборка</label>
                 <br>
                 <input type="checkbox" name="door_metal" id="door_metal" disabled>
-                <label for="door_metal">Металическая дверь (только с высотой бытовки 2.15)</label>
+                <label for="door_metal">Металическая дверь (только с высотой бытовки от 2.15)</label>
             </p>
             <br>
             <br>
